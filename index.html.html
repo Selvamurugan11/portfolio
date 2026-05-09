@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selvamurugan R — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --white:#FFFFFF;
+  --off-white:#F8F6F1;
+  --cream:#F0EDE4;
+  --light-gray:#E8E5DE;
+  --border:#D6D0C4;
+  --text:#1A1A14;
+  --text-muted:#6B6555;
+  --text-light:#9E9585;
+  --green:#1B4332;
+  --green-mid:#2D6A4F;
+  --green-light:#40916C;
+  --gold:#8B6914;
+  --gold-light:#B5860D;
+  --red:#7C2A10;
+}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text);font-size:16px;line-height:1.7}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;background:var(--green);border-bottom:2px solid var(--gold)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px}
+.nav-brand{font-family:'DM Mono',monospace;color:#D4C9A8;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(240,237,228,0.75);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:#D4C9A8}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:#D4C9A8;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--green);z-index:99;padding:1rem 2rem;border-bottom:2px solid var(--gold)}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;color:rgba(240,237,228,0.85);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+
+/* HERO */
+#hero{min-height:100vh;background:var(--green);display:flex;align-items:center;padding-top:56px;position:relative;overflow:hidden}
+.pitch-texture{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(255,255,255,0.015) 80px,rgba(255,255,255,0.015) 81px)}
+.hero-inner{max-width:1200px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1fr auto;gap:5rem;align-items:center;width:100%}
+.hero-overline{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8FBC9E;margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem}
+.hero-overline::before{content:'';width:28px;height:1px;background:#8FBC9E}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.5rem);font-weight:900;color:#F0EDE4;line-height:1.05;margin-bottom:0.5rem}
+.hero-role{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#8FBC9E;margin-bottom:0.75rem}
+.hero-college{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(240,237,228,0.45);margin-bottom:2rem}
+.hero-divider{width:48px;height:2px;background:var(--gold-light);margin-bottom:2rem}
+.hero-bio{color:rgba(240,237,228,0.7);font-size:1rem;max-width:480px;margin-bottom:2.5rem;line-height:1.8}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--red);color:#F0EDE4;padding:0.7rem 1.75rem;border:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform 0.2s,background 0.2s;display:inline-block}
+.btn-primary:hover{background:#9B3515;transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#F0EDE4;padding:0.7rem 1.75rem;border:1px solid rgba(240,237,228,0.25);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-block}
+.btn-ghost:hover{border-color:#D4C9A8;color:#D4C9A8;transform:translateY(-2px)}
+.hero-photo-col{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.photo-wrap{position:relative;width:280px;height:320px;flex-shrink:0}
+.photo-frame-outer{position:absolute;inset:-10px;border:1px solid rgba(212,193,168,0.25)}
+.photo-frame-inner{position:absolute;inset:-5px;border:1px solid rgba(212,193,168,0.12)}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.photo-placeholder{width:100%;height:100%;background:var(--green-mid);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:4rem;color:rgba(212,193,168,0.4)}
+.scorecard{background:rgba(0,0,0,0.3);border:1px solid rgba(212,193,168,0.2);border-top:2px solid var(--gold-light);padding:1rem 1.5rem;width:100%}
+.scorecard-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,193,168,0.5);margin-bottom:8px;text-align:center}
+.scorecard-row{display:flex;gap:2rem;justify-content:center}
+.scorecard-item{text-align:center}
+.scorecard-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#D4C9A8;line-height:1}
+.scorecard-sub{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(212,193,168,0.45);margin-top:3px}
+
+/* SECTIONS */
+section{padding:5rem 2rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green-light);margin-bottom:0.5rem}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;color:var(--green);margin-bottom:0.5rem}
+.section-rule{width:100%;height:1px;background:var(--border);margin-bottom:3rem;position:relative}
+.section-rule::before{content:'';position:absolute;left:0;top:-1px;width:48px;height:3px;background:var(--green)}
+
+/* ABOUT */
+#about{background:var(--off-white);border-top:3px solid var(--green)}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.about-quote{font-size:1.05rem;color:var(--text);line-height:1.9;border-left:3px solid var(--green);padding-left:1.5rem;margin-bottom:2rem}
+.stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.stat-box{background:var(--white);border:1px solid var(--border);border-top:2px solid var(--green);padding:1.25rem;transition:transform 0.2s,box-shadow 0.2s}
+.stat-box:hover{transform:scale(1.03);box-shadow:0 6px 20px rgba(27,67,50,0.1)}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--green);line-height:1}
+.stat-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);margin-top:4px}
+
+/* SKILLS */
+#skills{background:var(--white);overflow:hidden}
+.skills-overflow{overflow:hidden;margin:0 -2rem;padding:0.5rem 0;position:relative}
+.skills-overflow::before,.skills-overflow::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2}
+.skills-overflow::before{left:0;background:linear-gradient(to right,var(--white),transparent)}
+.skills-overflow::after{right:0;background:linear-gradient(to left,var(--white),transparent)}
+.skills-track{display:flex;gap:1rem;padding:0.5rem 1rem;width:max-content;animation:marquee 35s linear infinite}
+.skills-track:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.skill-card{background:var(--off-white);border:1px solid var(--border);padding:1.5rem 1.25rem;min-width:150px;max-width:150px;text-align:center;flex-shrink:0;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;cursor:default}
+.skill-card:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(27,67,50,0.12);border-color:var(--green-light)}
+.skill-icon{width:40px;height:40px;margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center}
+.skill-name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text);margin-bottom:4px;font-weight:500}
+.skill-level{font-size:10px;color:var(--text-light)}
+.skill-bar{height:2px;background:var(--light-gray);margin-top:8px}
+.skill-bar-fill{height:100%;background:var(--green-light)}
+
+/* PROJECTS */
+#projects{background:var(--off-white)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.project-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--green);padding:2rem;transition:transform 0.2s,box-shadow 0.2s;position:relative;display:flex;flex-direction:column}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(27,67,50,0.1)}
+.project-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);margin-bottom:0.75rem}
+.project-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--green);margin-bottom:0.75rem}
+.project-desc{font-size:0.9rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.7;flex:1}
+.project-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:var(--cream);border:1px solid var(--border);color:var(--text-muted);padding:3px 9px}
+.project-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:auto}
+.proj-link{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green-light);padding-bottom:1px;transition:color 0.2s}
+.proj-link:hover{color:var(--green-mid)}
+.live-badge{position:absolute;top:1.5rem;right:1.5rem;background:var(--green);color:#F0EDE4;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;display:flex;align-items:center;gap:5px}
+.live-dot{width:5px;height:5px;border-radius:50%;background:#52B788;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* EXPERIENCE */
+#experience{background:var(--white);border-top:3px solid var(--green)}
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--green) 0%,var(--green-light) 65%,var(--gold-light) 100%)}
+.tl-item{position:relative;margin-bottom:2.75rem}
+.tl-dot{position:absolute;left:-2.825rem;top:6px;width:14px;height:14px;border-radius:50%;border:2px solid var(--green);background:var(--white);transition:transform 0.2s}
+.tl-dot.past{border-color:var(--border);background:var(--cream)}
+.tl-dot.current{border-color:var(--green);background:var(--green)}
+.tl-dot.now{border-color:var(--gold-light);background:var(--gold-light);animation:blink 1.5s infinite}
+.tl-item:hover .tl-dot{transform:scale(1.25)}
+.tl-period{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);margin-bottom:0.25rem}
+.tl-role{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:0.2rem}
+.tl-role.past{color:var(--text-light)}
+.tl-role.current{color:var(--green)}
+.tl-role.now-role{color:var(--gold)}
+.tl-company{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text-light);margin-bottom:0.6rem}
+.tl-desc{font-size:0.9rem;color:var(--text-muted);max-width:560px}
+.tl-desc.past{opacity:0.6}
+
+/* ACHIEVEMENTS */
+#achievements{background:var(--off-white)}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.ach-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;transition:transform 0.2s,box-shadow 0.2s}
+.ach-card:hover{transform:scale(1.03);box-shadow:0 6px 20px rgba(27,67,50,0.08)}
+.ach-title{font-weight:600;font-size:0.95rem;color:var(--text);margin-bottom:0.35rem}
+.ach-desc{font-size:0.85rem;color:var(--text-muted)}
+
+/* CERTIFICATIONS */
+#certifications{background:var(--white)}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.cert-card{background:var(--off-white);border:1px solid var(--border);border-bottom:2px solid var(--gold-light);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:transform 0.2s,box-shadow 0.2s}
+.cert-card:hover{transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,0.07)}
+.cert-icon{width:36px;height:36px;flex-shrink:0}
+.cert-name{font-weight:600;font-size:0.9rem;color:var(--text);margin-bottom:2px}
+.cert-meta{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text-light)}
+.cert-link{font-family:'DM Mono',monospace;font-size:9px;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green-light)}
+
+/* EXTRAS */
+#extras{background:var(--green)}
+#extras .section-tag{color:#8FBC9E}
+#extras .section-heading{color:#F0EDE4}
+#extras .section-rule{background:rgba(240,237,228,0.15)}
+#extras .section-rule::before{background:var(--gold-light)}
+.extras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+.extra-card{background:rgba(255,255,255,0.05);border:1px solid rgba(240,237,228,0.12);padding:1.5rem;text-align:center;transition:background 0.2s,transform 0.2s}
+.extra-card:hover{background:rgba(255,255,255,0.09);transform:scale(1.03)}
+.extra-title{font-weight:600;font-size:0.95rem;color:#F0EDE4;margin-bottom:0.35rem}
+.extra-desc{font-size:0.85rem;color:rgba(240,237,228,0.55)}
+
+/* CONTACT */
+#contact{background:var(--off-white);text-align:center}
+.contact-bio{font-size:1rem;color:var(--text-muted);max-width:440px;margin:0 auto 2.5rem}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:800px;margin:0 auto}
+.contact-card{background:var(--white);border:1px solid var(--border);border-top:2px solid var(--green);padding:1.25rem;text-align:center;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;display:block}
+.contact-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(27,67,50,0.1)}
+.contact-card-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);margin-bottom:0.4rem}
+.contact-card-val{font-size:0.85rem;color:var(--green);font-weight:500;word-break:break-all}
+
+/* FOOTER */
+footer{background:var(--text);padding:1.5rem 2rem;text-align:center}
+.footer-text{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;text-align:center}
+  .hero-overline{justify-content:center}
+  .hero-bio{margin-left:auto;margin-right:auto}
+  .hero-btns{justify-content:center}
+  .hero-divider{margin-left:auto;margin-right:auto}
+  .photo-wrap{width:220px;height:260px}
+  .hero-photo-col{order:-1}
+  .about-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+}
+@media(max-width:480px){
+  section{padding:3.5rem 1.25rem}
+  .hero-inner{padding:3rem 1.25rem}
+  .photo-wrap{width:180px;height:220px}
+  .projects-grid{grid-template-columns:1fr}
+  .scorecard-row{gap:1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">Selvamurugan R</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#extras">Extras</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#achievements" onclick="closeMenu()">Achievements</a>
+  <a href="#certifications" onclick="closeMenu()">Certifications</a>
+  <a href="#extras" onclick="closeMenu()">Extras</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="pitch-texture"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-overline">B.E. CSE · Sri Sairam Engineering College · Chennai</div>
+      <h1 class="hero-name">Selvamurugan R</h1>
+      <p class="hero-role">Developer · AI Builder · Automation Engineer</p>
+      <div class="hero-divider"></div>
+      <p class="hero-bio">Third-year CSE student who builds things that actually ship. From AI interview coaches to production automation pipelines — I learn fast and build faster.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="https://firstpunch.vercel.app" target="_blank" class="btn-ghost">Live — FirstPunch</a>
+      </div>
+    </div>
+    <div class="hero-photo-col">
+      <div class="photo-wrap">
+        <div class="photo-frame-outer"></div>
+        <div class="photo-frame-inner"></div>
+        <img src="profile.jpg" alt="Selvamurugan R" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="photo-placeholder" style="display:none">SR</div>
+      </div>
+      <div class="scorecard">
+        <div class="scorecard-label">Player Stats</div>
+        <div class="scorecard-row">
+          <div class="scorecard-item">
+            <div class="scorecard-val">8.78</div>
+            <div class="scorecard-sub">CGPA</div>
+          </div>
+          <div class="scorecard-item">
+            <div class="scorecard-val">2</div>
+            <div class="scorecard-sub">Internships</div>
+          </div>
+          <div class="scorecard-item">
+            <div class="scorecard-val">2027</div>
+            <div class="scorecard-sub">Graduating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-tag">// innings notes</p>
+    <h2 class="section-heading">About</h2>
+    <div class="section-rule"></div>
+    <div class="about-grid">
+      <div>
+        <p class="about-quote">Third-year Computer Science student with hands-on experience building AI-powered applications, automation pipelines, and full stack products. I have worked at real startups, shipped products used by real users, and participated in national level competitions. I learn fast and build faster.</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-val">8.78</div><div class="stat-lbl">CGPA</div></div>
+        <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Internships</div></div>
+        <div class="stat-box"><div class="stat-val">3+</div><div class="stat-lbl">Live Projects</div></div>
+        <div class="stat-box"><div class="stat-val">3×</div><div class="stat-lbl">State Titles</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-tag">// player stats</p>
+    <h2 class="section-heading">Skills</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="skills-overflow">
+    <div class="skills-track">
+      <!-- SET 1 -->
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#3776AB"/><text x="20" y="27" font-family="monospace" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Py</text></svg></div>
+        <div class="skill-name">Python</div><div class="skill-level">Primary</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#ED8B00"/><text x="20" y="27" font-family="monospace" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Java</text></svg></div>
+        <div class="skill-name">Java</div><div class="skill-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#555"/><text x="20" y="27" font-family="monospace" font-size="16" font-weight="bold" fill="white" text-anchor="middle">C</text></svg></div>
+        <div class="skill-name">C</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#E34F26"/><text x="20" y="27" font-family="monospace" font-size="10" font-weight="bold" fill="white" text-anchor="middle">HTML</text></svg></div>
+        <div class="skill-name">HTML</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#1572B6"/><text x="20" y="27" font-family="monospace" font-size="12" font-weight="bold" fill="white" text-anchor="middle">CSS</text></svg></div>
+        <div class="skill-name">CSS</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#092E20"/><text x="20" y="22" font-family="monospace" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Django</text><text x="20" y="32" font-family="monospace" font-size="7" fill="#44B78B" text-anchor="middle">learning</text></svg></div>
+        <div class="skill-name">Django</div><div class="skill-level">Learning</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:25%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#336791"/><text x="20" y="27" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">PgSQL</text></svg></div>
+        <div class="skill-name">PostgreSQL</div><div class="skill-level">Working</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#EA4B71"/><text x="20" y="27" font-family="monospace" font-size="12" font-weight="bold" fill="white" text-anchor="middle">n8n</text></svg></div>
+        <div class="skill-name">n8n</div><div class="skill-level">Production</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#F24E1E"/><text x="20" y="27" font-family="monospace" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Figma</text></svg></div>
+        <div class="skill-name">Figma</div><div class="skill-level">Working</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:45%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#00C4CC"/><text x="20" y="27" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">Canva</text></svg></div>
+        <div class="skill-name">Canva</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#1F5C99"/><text x="20" y="22" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">IBM</text><text x="20" y="32" font-family="monospace" font-size="7" font-weight="bold" fill="white" text-anchor="middle">AMOS</text></svg></div>
+        <div class="skill-name">IBM AMOS</div><div class="skill-level">Academic</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div>
+      </div>
+      <!-- SET 2 duplicate for seamless loop -->
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#3776AB"/><text x="20" y="27" font-family="monospace" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Py</text></svg></div>
+        <div class="skill-name">Python</div><div class="skill-level">Primary</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#ED8B00"/><text x="20" y="27" font-family="monospace" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Java</text></svg></div>
+        <div class="skill-name">Java</div><div class="skill-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#555"/><text x="20" y="27" font-family="monospace" font-size="16" font-weight="bold" fill="white" text-anchor="middle">C</text></svg></div>
+        <div class="skill-name">C</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#E34F26"/><text x="20" y="27" font-family="monospace" font-size="10" font-weight="bold" fill="white" text-anchor="middle">HTML</text></svg></div>
+        <div class="skill-name">HTML</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#1572B6"/><text x="20" y="27" font-family="monospace" font-size="12" font-weight="bold" fill="white" text-anchor="middle">CSS</text></svg></div>
+        <div class="skill-name">CSS</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#092E20"/><text x="20" y="22" font-family="monospace" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Django</text><text x="20" y="32" font-family="monospace" font-size="7" fill="#44B78B" text-anchor="middle">learning</text></svg></div>
+        <div class="skill-name">Django</div><div class="skill-level">Learning</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:25%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#336791"/><text x="20" y="27" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">PgSQL</text></svg></div>
+        <div class="skill-name">PostgreSQL</div><div class="skill-level">Working</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#EA4B71"/><text x="20" y="27" font-family="monospace" font-size="12" font-weight="bold" fill="white" text-anchor="middle">n8n</text></svg></div>
+        <div class="skill-name">n8n</div><div class="skill-level">Production</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#F24E1E"/><text x="20" y="27" font-family="monospace" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Figma</text></svg></div>
+        <div class="skill-name">Figma</div><div class="skill-level">Working</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:45%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#00C4CC"/><text x="20" y="27" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">Canva</text></svg></div>
+        <div class="skill-name">Canva</div><div class="skill-level">Comfortable</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#1F5C99"/><text x="20" y="22" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">IBM</text><text x="20" y="32" font-family="monospace" font-size="7" font-weight="bold" fill="white" text-anchor="middle">AMOS</text></svg></div>
+        <div class="skill-name">IBM AMOS</div><div class="skill-level">Academic</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <p class="section-tag">// match scoreboard</p>
+    <h2 class="section-heading">Projects</h2>
+    <div class="section-rule"></div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="live-badge"><div class="live-dot"></div>Live</div>
+        <div class="project-num">01</div>
+        <h3 class="project-name">FirstPunch</h3>
+        <p class="project-desc">AI-powered mock interview and speech evaluation platform. Students speak on a topic and receive instant structured feedback via Groq API.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">PostgreSQL</span><span class="tag">Groq API</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://firstpunch.vercel.app" target="_blank" class="proj-link">Live Site →</a>
+          <a href="https://github.com/Selvamurugan11/firstpunch-overview" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <h3 class="project-name">YouTube Auto-Publish</h3>
+        <p class="project-desc">End-to-end n8n pipeline integrating Google Sheets, OpenAI API and YouTube API — auto-detects recordings, generates captions, and publishes. Deployed in production at SRTechOps.</p>
+        <div class="project-tags">
+          <span class="tag">n8n</span><span class="tag">OpenAI API</span><span class="tag">YouTube API</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://github.com/Selvamurugan11/n8n-Automation-Workflows" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <h3 class="project-name">ThermoGuard — CDEC</h3>
+        <p class="project-desc">ESP32-based standalone evaporative cooling device simulation for parked cars. 3-condition thermostat logic cools cabin from 65°C to 31°C. Submitted to Varroc Eureka Challenge 3.0.</p>
+        <div class="project-tags">
+          <span class="tag">ESP32</span><span class="tag">IoT</span><span class="tag">DHT22</span><span class="tag">Wokwi</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://youtube.com/shorts/Nz4vqkCiKiw" target="_blank" class="proj-link">Demo →</a>
+          <a href="https://github.com/Selvamurugan11/thermoguard" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-tag">// match history</p>
+    <h2 class="section-heading">Experience</h2>
+    <div class="section-rule"></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-period">Jun 2025 — Jul 2025</div>
+        <div class="tl-role past">Angular Development Intern</div>
+        <div class="tl-company">Chenosa Technology Solutions · Chennai</div>
+        <p class="tl-desc past">Learned Angular component architecture, data binding, directives, and routing — applied through structured mentorship in a corporate development environment.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot current"></div>
+        <div class="tl-period">Dec 2025 — Mar 2026</div>
+        <div class="tl-role current">Automation Intern</div>
+        <div class="tl-company">SRTechOps · Chennai</div>
+        <p class="tl-desc">Built two production n8n automation pipelines integrating Google Sheets, OpenAI API and YouTube API. Identified cost-saving tools. Resolved live production bugs.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot now"></div>
+        <div class="tl-period">Present</div>
+        <div class="tl-role now-role">Learning & Building</div>
+        <div class="tl-company">Sri Sairam Engineering College · 3rd Year</div>
+        <p class="tl-desc">Learning Django, deepening Python skills, and preparing for placements at Zoho, Freshworks, TCS, and Cisco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-inner">
+    <p class="section-tag">// honours board</p>
+    <h2 class="section-heading">Achievements</h2>
+    <div class="section-rule"></div>
+    <div class="ach-grid">
+      <div class="ach-card">
+        <div class="ach-title">SDG Innovathon — Startup Validated</div>
+        <p class="ach-desc">Jury at Sairam SDG Innovathon 2025 validated FirstPunch as a startup-worthy idea.</p>
+      </div>
+      <div class="ach-card">
+        <div class="ach-title">Varroc Eureka Challenge 3.0</div>
+        <p class="ach-desc">Submitted CDEC — smart evaporative cooling solution for parked cars — to Varroc's national automotive hackathon.</p>
+      </div>
+      <div class="ach-card">
+        <div class="ach-title">SIH Internal Top 100</div>
+        <p class="ach-desc">Selected among top 100 in Smart India Hackathon internal round at Sri Sairam Engineering College.</p>
+      </div>
+      <div class="ach-card">
+        <div class="ach-title">Build2Gether Hackathon</div>
+        <p class="ach-desc">Participated in Build2Gether hackathon gaining collaborative team development experience.</p>
+      </div>
+      <div class="ach-card">
+        <div class="ach-title">Recognised as Research Analyst</div>
+        <p class="ach-desc">Acknowledged for research and analytical contributions during academic projects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <p class="section-tag">// player badges</p>
+    <h2 class="section-heading">Certifications</h2>
+    <div class="section-rule"></div>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-icon">
+          <svg viewBox="0 0 36 36"><rect width="36" height="36" rx="5" fill="#049FD9"/><text x="18" y="24" font-family="monospace" font-size="9" font-weight="bold" fill="white" text-anchor="middle">CISCO</text></svg>
+        </div>
+        <div>
+          <div class="cert-name">Cisco Python Essentials 1</div>
+          <div class="cert-meta">Completed · May 2026 &nbsp;·&nbsp;
+            <a href="https://www.credly.com/badges/81a9c41c-af0c-49aa-85bc-10a3a89ec89d" target="_blank" class="cert-link">View</a>
+          </div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">
+          <svg viewBox="0 0 36 36"><rect width="36" height="36" rx="5" fill="#1B4332"/><text x="18" y="22" font-family="monospace" font-size="8" font-weight="bold" fill="white" text-anchor="middle">NPTEL</text><text x="18" y="30" font-family="monospace" font-size="6" fill="#8FBC9E" text-anchor="middle">86/100</text></svg>
+        </div>
+        <div>
+          <div class="cert-name">NPTEL — Introduction to IoT</div>
+          <div class="cert-meta">Score: 86/100 · Jul–Oct 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAS -->
+<section id="extras">
+  <div class="section-inner">
+    <p class="section-tag">// beyond the boundary</p>
+    <h2 class="section-heading">Extras</h2>
+    <div class="section-rule"></div>
+    <div class="extras-grid">
+      <div class="extra-card">
+        <div class="extra-title">Karate Practitioner</div>
+        <p class="extra-desc">Trained martial artist with competitive tournament experience</p>
+      </div>
+      <div class="extra-card">
+        <div class="extra-title">3× State-Level 1st Prize</div>
+        <p class="extra-desc">Three state-level first prizes in competitive karate tournaments — Tamil Nadu</p>
+      </div>
+      <div class="extra-card">
+        <div class="extra-title">International Bronze Medal</div>
+        <p class="extra-desc">Awarded bronze medal at international level karate competition</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner" style="text-align:center">
+    <p class="section-tag" style="display:block">// next over</p>
+    <h2 class="section-heading" style="display:inline-block">Let's Connect</h2>
+    <div class="section-rule" style="max-width:300px;margin-left:auto;margin-right:auto"></div>
+    <p class="contact-bio">Open to internships, placements, and collaborations. If you are building something interesting — let's talk.</p>
+    <div class="contact-grid">
+      <a href="mailto:selvaram1109@gmail.com" class="contact-card">
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-val">selvaram1109@gmail.com</div>
+      </a>
+      <a href="https://linkedin.com/in/selvamurugan-ramachandran-6ab1922b8" target="_blank" class="contact-card">
+        <div class="contact-card-label">LinkedIn</div>
+        <div class="contact-card-val">selvamurugan-ramachandran</div>
+      </a>
+      <a href="https://github.com/Selvamurugan11" target="_blank" class="contact-card">
+        <div class="contact-card-label">GitHub</div>
+        <div class="contact-card-val">github.com/Selvamurugan11</div>
+      </a>
+      <a href="https://firstpunch.vercel.app" target="_blank" class="contact-card">
+        <div class="contact-card-label">Live Project</div>
+        <div class="contact-card-val">firstpunch.vercel.app</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">Selvamurugan R · Sri Sairam Engineering College · Chennai · 2027</p>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open')}
+document.addEventListener('click',function(e){
+  var menu=document.getElementById('mobileMenu');
+  if(!menu.contains(e.target)&&!e.target.closest('.nav-toggle'))menu.classList.remove('open');
+});
+</script>
+</body>
+</html>
